@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Form Pop-up</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            /* Light gray background */
+        }
+
+        .modal-overlay {
+            /* Styles for the semi-transparent background overlay */
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <!-- Main button to open the form -->
+    <button id="openModalBtn"
+        class="px-6 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+        Open Form
+    </button>
+
+    <!-- The Pop-up Modal -->
+    <div id="modal" class="modal-overlay hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+
+        <!-- Modal Content (the actual form) -->
+        <div
+            class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8 transform scale-95 md:scale-100 transition-transform duration-300 ease-out">
+
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-extrabold text-gray-900">Contact Us</h2>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700 transition duration-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- The Form -->
+            <form class="space-y-6">
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe"
+                        class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com"
+                        class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+
+                <!-- Message Field -->
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700">Your Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="How can we help you?"
+                        class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    Send Message
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Get the necessary DOM elements
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modal = document.getElementById('modal');
+
+        // Function to open the modal
+        function openModal() {
+            modal.classList.remove('hidden');
+            // Animate the modal into view
+            setTimeout(() => {
+                modal.querySelector('div').classList.add('scale-100');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Wait for the transition to finish
+        }
+
+        // Event listeners
+        // Open the modal when the button is clicked
+        openModalBtn.addEventListener('click', openModal);
+
+        // Close the modal when the 'X' button is clicked
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close the modal if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            // Check if the click occurred on the overlay itself, not the modal content
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close the modal if the Escape key is pressed
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>
