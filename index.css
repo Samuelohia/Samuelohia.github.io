@@ -12,6 +12,10 @@ body {
     background-color: #fff;
 }
 
+header{
+display:sticky;    
+}
+
 /* Navigation */
 .navbar {
     display: flex;
@@ -329,4 +333,5 @@ footer {
         flex-direction:column;
         /* justify-content: space-evenly; */
     }
+
 }
